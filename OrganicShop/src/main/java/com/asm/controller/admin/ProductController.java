@@ -1,10 +1,11 @@
-package com.asm.controller;
+package com.asm.controller.admin;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.FileInputStream;
@@ -16,6 +17,10 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -34,6 +39,7 @@ import com.asm.entity.Units;
 import com.asm.entity.dao.ProductsDAO;
 import com.asm.services.CategoryService;
 import com.asm.services.ProductService;
+import com.asm.services.SessionService;
 import com.asm.services.SuppliersService;
 import com.asm.services.UnitService;
 
@@ -54,14 +60,40 @@ public class ProductController {
     @Autowired
     ProductsDAO productDAO;
     
+    @Autowired
+	SessionService sessionService;
+    
     @Value("${file.upload.dir}") // Sử dụng @Value để inject giá trị từ application.properties
     private String uploadDir;
 //    private static final String UPLOAD_DIR = "src/main/webapp/template/user/picture/";
     
     @RequestMapping("/productForm")
-    public String showProductForm(Model model) {
-        // Lấy danh sách các đơn vị, danh mục và nhà cung cấp từ service
-    	List<Products> product = productService.getAllProducts();
+    public String showProductForm(Model model,
+    				@RequestParam("keywords") Optional<String> kw, 
+    				@RequestParam("page")Optional<Integer> page,
+    				@RequestParam("field") Optional<String> field,
+    				@RequestParam("direction") Optional<String> direction) {
+    	// Sort
+        String sortField = field.orElse("productId");
+        String sortDirection = direction.orElse("desc"); // Mặc định là sắp xếp giảm dần
+        Sort sort = Sort.by(sortDirection.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortField);
+        
+        //find by name
+    	String kwords = kw.orElse("");
+//		sessionService.set("keywords", kwords); // lưu sesion để duy trì list chứa từ khóa đang tìm kiếm
+//		sessionService.setWithExpiry("keywords", kwords, 10, TimeUnit.SECONDS);
+		Pageable pageable = PageRequest.of(page.orElse(0), 10,sort); // truy xuất trang thứ 0 có 2 sản phẩm
+		Page<Products> items_products = productDAO.findAllByProductNameLike("%"+kwords+"%", pageable);
+		if(items_products.isEmpty())
+		{
+			model.addAttribute("message", kwords);
+			return "admin/404";
+		}else {
+			 model.addAttribute("message", kwords);
+			model.addAttribute("items_products", items_products);
+		}
+		
+//    	List<Products> product = productService.getAllProducts();
         List<Units> units = unitService.getAllUnits();
         List<Categories> categories = categoryService.getAllCategory();
         List<Suppliers> suppliers = supplierService.getAllSuppliers();
@@ -72,20 +104,45 @@ public class ProductController {
         model.addAttribute("units", units);
         model.addAttribute("categories", categories);
         model.addAttribute("suppliers", suppliers);
-        model.addAttribute("products", product);
+        model.addAttribute("sortField", sortField);
+//        model.addAttribute("products", product);
         
         return "admin/manage_product";
     }
     
     @RequestMapping("/product/edit/{id}")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String edit(Model model, @PathVariable("id") int id,
+	    		@RequestParam("keywords") Optional<String> kw, 
+				@RequestParam("page")Optional<Integer> page,
+				@RequestParam("field") Optional<String> field,
+				@RequestParam("direction") Optional<String> direction) {
         Products item = productDAO.findById(id).get();
         model.addAttribute("item", item);
-        List<Products> items = productDAO.findAll();
+        
+        // Sort
+        String sortField = field.orElse("productId");
+        String sortDirection = direction.orElse("desc"); // Mặc định là sắp xếp giảm dần
+        Sort sort = Sort.by(sortDirection.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortField);
+        
+        //find by name
+    	String kwords = kw.orElse("");
+//		sessionService.set("keywords", kwords); // lưu sesion để duy trì list chứa từ khóa đang tìm kiếm
+//		sessionService.setWithExpiry("keywords", kwords, 10, TimeUnit.SECONDS);
+		Pageable pageable = PageRequest.of(page.orElse(0), 10,sort); // truy xuất trang thứ 0 có 2 sản phẩm
+		Page<Products> items_products = productDAO.findAllByProductNameLike("%"+kwords+"%", pageable);
+		if(items_products.isEmpty())
+		{
+			model.addAttribute("message", kwords);
+			return "admin/404";
+		}else {
+			 model.addAttribute("message", kwords);
+			model.addAttribute("items_products", items_products);
+		}
+//        List<Products> items = productDAO.findAll();
         List<Units> units = unitService.getAllUnits();
         List<Categories> categories = categoryService.getAllCategory();
         List<Suppliers> suppliers = supplierService.getAllSuppliers();
-        model.addAttribute("products", items);
+        model.addAttribute("items_products", items_products);
         model.addAttribute("units", units);
         model.addAttribute("categories", categories);
         model.addAttribute("suppliers", suppliers);
@@ -179,5 +236,22 @@ public class ProductController {
         return "redirect:/productForm";
     }
     
-
+//    @RequestMapping("/search")
+//	public String searchAndPage(Model model,@RequestParam("keywords") Optional<String> kw) {
+//		String kwords = kw.orElse(sessionService.get("keywords", ""));
+//		sessionService.set("keywords", kwords); // lưu sesion để duy trì list chứa từ khóa đang tìm kiếm
+//		Page<Products> items_products = productDAO.findAllByProductNameLike("%"+kwords+"%"); // truy vấn tất cả
+//		
+//		if(items_products.isEmpty())
+//		{
+//			model.addAttribute("message", sessionService.get("keywords"));
+//			return "user/404";
+//		}else {
+//			model.addAttribute("keyword", sessionService.get("keywords"));
+//			model.addAttribute("items_products", items_products);
+//		}
+//		
+//		return "user/shop";
+//	}
+    
 }
