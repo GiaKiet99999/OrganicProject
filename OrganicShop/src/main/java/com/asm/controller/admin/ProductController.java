@@ -1,4 +1,4 @@
-package com.asm.controller;
+package com.asm.controller.admin;
 
 import java.io.File;
 import java.util.ArrayList;

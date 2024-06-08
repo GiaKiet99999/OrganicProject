@@ -11,7 +11,7 @@ public class ResourceConfig {
     @Bean("messageSource")
     public MessageSource getMessageSource() {
         ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
-        ms.setBasename("classpath:message/mess");
+        ms.setBasenames("classpath:message/mess", "classpath:message/messUser", "classpath:message/messEmployee");
         ms.setDefaultEncoding("utf-8");
         return ms;
     }
