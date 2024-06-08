@@ -2,6 +2,8 @@ package com.asm.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.asm.entity.Products;
 import com.asm.entity.dao.ProductsDAO;
@@ -33,6 +35,10 @@ public class ProductService {
     
     public List<Products> getAllProducts() {
         return productDAO.findAll();
+    }
+    
+    public Page<Products> getAllProducts(Pageable pageable) {
+        return productDAO.findAll(pageable);
     }
 }
 

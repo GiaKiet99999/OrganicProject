@@ -171,18 +171,30 @@
 								<div class="d-flex align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary text-uppercase">Product
 										List</h6>
-									<form class="form-inline">
+									<form action="/productForm" method="get" class="form-inline">
+										<div class="dropdown mx-2">
+										    <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+										        Sort By
+										    </button>
+										    <ul class="dropdown-menu" aria-labelledby="sortDropdownMenu">
+										        <li><a class="dropdown-item" href="/productForm?field=productId">Newest</a></li>
+										        <li><a class="dropdown-item" href="/productForm?field=productId&direction=asc">Oldest</a></li>
+										        <li><a class="dropdown-item" href="/productForm?field=price&direction=asc">Lowest Price</a></li>
+										        <li><a class="dropdown-item" href="/productForm?field=price&direction=desc">Highest Price</a></li>
+										    </ul>
+										</div>
+										
 										<div class="input-group">
-											<input type="text"
-												class="form-control bg-light border-0 small"
+											<input type="search" class="form-control bg-light border-0 small"
 												placeholder="Search for..." aria-label="Search"
-												aria-describedby="basic-addon2">
+												aria-describedby="basic-addon2" name="keywords" value="${keyword}">
 											<div class="input-group-append">
-												<button class="btn btn-primary" type="button">
+												<button class="btn btn-primary" type="submit">
 													<i class="fas fa-search fa-sm"></i>
 												</button>
 											</div>
 										</div>
+
 									</form>
 								</div>
 							</div>
@@ -192,7 +204,7 @@
 								<table class="table table-hover table-bordered">
 									<thead class="thead-light">
 										<tr>
-											<th scope="col">#</th>
+											<th><a href="/productForm?field=productId">Id</a></th>
 											<th scope="col">Name</th>
 											<th scope="col">Supplier</th>
 											<th scope="col">Price</th>
@@ -206,7 +218,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="product" items="${products}">
+										<c:forEach var="product" items="${items_products.content}">
 											<tr>
 												<th scope="row">${product.productId}</th>
 												<td>${product.productName}</td>
@@ -217,11 +229,13 @@
 												<td>${product.unit.name}</td>
 												<td>${product.category.categoryName}</td>
 												<td>${product.importDate}</td>
-												<td><c:if test="${not empty product.imageUrl}">
+												<td>
+													<c:if test="${not empty product.imageUrl}">
 														<img src="/template/user/picture/${product.imageUrl}"
 															class="img-thumbnail" width="100"
 															alt="${product.productId}" />
-													</c:if></td>
+													</c:if>
+												</td>
 												<td><a
 													href="${pageContext.request.contextPath}/product/edit/${product.productId}"
 													class="btn btn-sm btn-primary">Edit</a> <a
@@ -233,6 +247,33 @@
 										</c:forEach>
 									</tbody>
 								</table>
+								<div class="col-12">
+								    <div class="pagination d-flex justify-content-center mt-5">
+								        <ul class="pagination">
+								            <c:if test="${items_products.hasPrevious()}">
+								                <li class="page-item">
+								                    <a href="?page=0" class="page-link">First</a>
+								                </li>
+								                <li class="page-item">
+								                    <a href="?page=${items_products.number - 1}" class="page-link">&laquo;</a>
+								                </li>
+								            </c:if>
+								            <c:forEach var="i" begin="1" end="${items_products.totalPages}">
+								                <li class="page-item ${i == items_products.number + 1 ? 'active' : ''}">
+								                    <a class="page-link" href="?page=${i - 1}">${i}</a>
+								                </li>
+								            </c:forEach>
+								            <c:if test="${items_products.hasNext()}">
+								                <li class="page-item">
+								                    <a href="?page=${items_products.number + 1}" class="page-link">&raquo;</a>
+								                </li>
+								                <li class="page-item">
+								                    <a href="?page=${items_products.totalPages - 1}" class="page-link">Last</a>
+								                </li>
+								            </c:if>
+								        </ul>
+								    </div>
+								</div>
 							</div>
 						</div>
 					</div>
