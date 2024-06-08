@@ -12,7 +12,7 @@
  <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/app/admin/home">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -24,7 +24,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="/app/admin/home">
+                <a class="nav-link" href="/admin/home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Overview</span>
                 </a>
@@ -73,27 +73,41 @@
 				            <a class="collapse-item" href="/suppliersForm">Add Suppliers</a>
 				            <a class="collapse-item" href="/list_suppliers">List Suppliers</a>
 				        </div>
+				        
 				    </div>
 				</div>
             </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+			
+			<div class="sidebar-heading">
+                Orders
+            </div>
+            
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3"
+                    aria-expanded="true" aria-controls="collapse3">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Orders</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
+                <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionSidebar">
+				    <div class="bg-light py-2 collapse-inner rounded">
+				        <!-- Products Menu -->
+				        <a class="collapse-item" href="#" data-toggle="collapse" data-target="#orderSubmenu" aria-expanded="true" aria-controls="orderSubmenu">List of Orders</a>
+				        
+				        <div id="orderSubmenu" class="collapse">
+				            <a class="collapse-item" href="/order_list">List</a>
+				        </div>
+				
+				        <!-- Employee Menu -->
+				        <a class="collapse-item" href="#" data-toggle="collapse" data-target="#orderstatusSubmenu" aria-expanded="true" aria-controls="orderstatusSubmenu">Orders Status</a>
+				        <div id="orderstatusSubmenu" class="collapse">
+				            <a class="collapse-item" href="/order_processing">Pending</a>
+				            <a class="collapse-item" href="/order_delivering">Delivering</a>
+				            <a class="collapse-item" href="/order_cancelled">Cancelled</a>
+				            <a class="collapse-item" href="/order_success">Success</a>
+				            <a class="collapse-item" href="/order_returned">Returned</a>
+				        </div>
+				    </div>
+				</div>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

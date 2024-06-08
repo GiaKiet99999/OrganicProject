@@ -53,8 +53,6 @@ public class HomeController {
 	        // Redirect người dùng về trang hiện tại hoặc trang sản phẩm
 	        return "redirect:/home/index"; // Hoặc "redirect:/product/detail/" + productId nếu muốn trở về trang chi tiết sản phẩm
 	    }
-	  
-	 
-	
+
 
 }

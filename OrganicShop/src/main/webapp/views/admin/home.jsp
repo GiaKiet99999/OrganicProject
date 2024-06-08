@@ -260,22 +260,21 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+						    <div class="card border-left-success shadow h-100 py-2">
+						        <div class="card-body">
+						            <div class="row no-gutters align-items-center">
+						                <div class="col mr-2">
+						                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+						                        Today's Total Amount</div>
+						                    <div class="h5 mb-0 font-weight-bold text-gray-800">${totalTodayAmount} $</div>
+						                </div>
+						                <div class="col-auto">
+						                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+						                </div>
+						            </div>
+						        </div>
+						    </div>
+						</div>
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
@@ -306,22 +305,24 @@
                         </div>
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+		                <div class="col-xl-3 col-md-6 mb-4">
+			                <div class="card border-left-warning shadow h-100 py-2">
+			                    <div class="card-body">
+			                        <div class="row no-gutters align-items-center">
+			                            <div class="col mr-2">
+			                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+			                                    Pending Requests</div>
+			                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+			                                    ${pendingOrdersCount}
+			                                </div>
+			                            </div>
+			                            <div class="col-auto">
+			                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+		            	</div>
                     </div>
 
                     <!-- Content Row -->
@@ -331,7 +332,7 @@
                         <div class="card">
                             <div class="card-header py-3">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Waiting to Confirm</h6>
                                     <form class="form-inline">
                                         <div class="input-group">
                                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
@@ -351,55 +352,41 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>ID</th>
+                                            <th>Customer Name</th>
+                                            <th>Order Date</th>
+                                            <th>Total Amount</th>
+                                            <th>Shipping Address</th>
+                                            <th>Order Status</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
+                                        <c:forEach var="order" items="${orders}">
+                                            <c:if test="${order.orderStatus eq 'Pending'}">
+                                                <tr>
+                                                    <td>${order.orderId}</td>
+                                                    <td>${order.customer.firstName} ${order.customer.lastName}</td>
+                                                    <td>${order.orderDate}</td>
+                                                    <td>${order.totalAmount}</td>
+                                                    <td>${order.shippingAddress}</td>
+													<td><label class="badge badge-warning p-2" style="font-size: 12px;">${order.orderStatus}</label></td>	
+                                                    <td>
+													    <div class="btn-group" role="group" aria-label="Order Actions">
+													        <a href="/order-detail/${order.orderId}" class="btn btn-primary btn-sm">Detail</a>
+													        <form action="/setDelivering" method="POST" style="margin-left: 5px;">
+													            <input type="hidden" name="orderId" value="${order.orderId}">
+													            <button type="button" class="btn btn-success btn-sm" onclick="confirmAction(this)">Confirm</button>
+													        </form>
+													        <form action="/setCancelled" method="POST" style="margin-left: 5px;">
+													            <input type="hidden" name="orderId" value="${order.orderId}">
+													            <button type="button" class="btn btn-danger btn-sm" onclick="confirmAction(this)">Delete</button>
+													        </form>
+													    </div>
+													</td>
+                                                </tr>
+                                            </c:if>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -411,7 +398,7 @@
                         <div class="card">
                             <div class="card-header py-3">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Low Stock</h6>
                                     <form class="form-inline">
                                         <div class="input-group">
                                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
@@ -428,60 +415,78 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+									<table class="table table-hover table-bordered">
+										<thead class="thead-light">
+											<tr>
+												<th><a href="/productForm?field=productId">Id</a></th>
+												<th scope="col">Name</th>
+												<th scope="col">Supplier</th>
+												<th scope="col">Price</th>
+												<th scope="col">Sale Price</th>
+												<th scope="col">Quantity</th>
+												<th scope="col">Unit</th>
+												<th scope="col">Category</th>
+												<th scope="col">Import Date</th>
+												<th scope="col">Image</th>
+												<th scope="col">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="product" items="${products}">
+											    <c:if test="${product.quantity <= 10}">
+											        <tr>
+											            <th scope="row">${product.productId}</th>
+											            <td>${product.productName}</td>
+											            <td>${product.supplier.name}</td>
+											            <td>${product.price}</td>
+											            <td>${product.salePrice}</td>
+											            <td>${product.quantity}</td>
+											            <td>${product.unit.name}</td>
+											            <td>${product.category.categoryName}</td>
+											            <td>${product.importDate}</td>
+											            <td>
+											                <c:if test="${not empty product.imageUrl}">
+											                    <img src="/template/user/picture/${product.imageUrl}" class="img-thumbnail" width="100" alt="${product.productId}" />
+											                </c:if>
+											            </td>
+											            <td>
+											                <a href="${pageContext.request.contextPath}/product/edit/${product.productId}" class="btn btn-sm btn-primary">Edit</a>
+											                <a href="${pageContext.request.contextPath}/product/delete/${product.productId}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+											            </td>
+											        </tr>
+											    </c:if>
+											</c:forEach>
+										</tbody>
+									</table>
+									<div class="col-12">
+									    <div class="pagination d-flex justify-content-center mt-5">
+									        <ul class="pagination">
+									            <c:if test="${items_products.hasPrevious()}">
+									                <li class="page-item">
+									                    <a href="?page=0" class="page-link">First</a>
+									                </li>
+									                <li class="page-item">
+									                    <a href="?page=${items_products.number - 1}" class="page-link">&laquo;</a>
+									                </li>
+									            </c:if>
+									            <c:forEach var="i" begin="1" end="${items_products.totalPages}">
+									                <li class="page-item ${i == items_products.number + 1 ? 'active' : ''}">
+									                    <a class="page-link" href="?page=${i - 1}">${i}</a>
+									                </li>
+									            </c:forEach>
+									            <c:if test="${items_products.hasNext()}">
+									                <li class="page-item">
+									                    <a href="?page=${items_products.number + 1}" class="page-link">&raquo;</a>
+									                </li>
+									                <li class="page-item">
+									                    <a href="?page=${items_products.totalPages - 1}" class="page-link">Last</a>
+									                </li>
+									            </c:if>
+									        </ul>
+									    </div>
+									</div>
+								</div>
                             </div>
                         </div>
                     </div>
@@ -496,4 +501,18 @@
     </div>
     <!-- End of Page Wrapper -->
 </body>
+<script>
+    function confirmAction(button) {
+        var action = button.textContent; // Lấy hành động từ nội dung của nút
+        var confirmationMessage = "Are you sure you want to " + action.toLowerCase() + "?";
+        
+        // Hiển thị hộp thoại xác nhận
+        if (confirm(confirmationMessage)) {
+            // Nếu người dùng xác nhận, submit form tương ứng
+            button.form.submit();
+        } else {
+            // Nếu người dùng hủy bỏ, không làm gì cả
+        }
+    }
+</script>
 </html>
