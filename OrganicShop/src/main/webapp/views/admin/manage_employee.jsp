@@ -1,331 +1,245 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ include file="/common/taglib.jsp"%>
+	pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib.jsp"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<%@ include file="/common/admin/head.jsp" %>
+<title>Employee Management</title>
+<%@ include file="/common/admin/head.jsp"%>
 </head>
 <body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <%@ include file="/common/admin/sidebar.jsp" %>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
+	<div id="wrapper">
+		<%@ include file="/common/admin/sidebar.jsp"%>
+		<div id="content-wrapper" class="d-flex flex-column">
+			<div id="content">
+				<%@ include file="/common/admin/topbar.jsp"%>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-9">
+							<h1 class="h3 mb-3 text-gray-800 font-weight-bold text-uppercase">Employee
+								Management</h1>
+                                <p>${errorMessage}</p>
+						</div>
+					</div>
+					<div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
+						<!-- Employee form -->
+						<form:form action="/admin/employee/create" method="post"
+							modelAttribute="employees_form" enctype="multipart/form-data">
+							<!-- Input fields for employee information -->
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<form:input type="hidden" path="employeeId"
+										placeholder="Employee Id" />
+                                        <form:input type="hidden" path="user"
+										placeholder="Employee Id" />
+                                        <form:input type="hidden" path="user.userId"
+										placeholder="Employee Id" />
+									<label for="firstName" class="text-gray-700">First Name</label>
+									<form:input path="firstName" id="firstName"
+										class="form-control" placeholder="First Name" />
+									<form:errors path="firstName" cssClass="text-danger" />
+								</div>
+								<div class="form-group col-md-6">
+									<label for="lastName" class="text-gray-700">Last Name</label>
+									<form:input path="lastName" id="lastName" class="form-control"
+										placeholder="Last Name" />
+									<form:errors path="lastName" cssClass="text-danger" />
+								</div>
+                                <div class="form-group col-md-6">
+                                    <label for="user.userRole.roleId" class="text-gray-700">Position</label>
+                                    <form:select path="user.userRole.roleId" id="roleId" class="form-control">
+                                        <form:options items="${userRoles}" itemValue="roleId" itemLabel="roleName" />
+                                    </form:select>
+                                </div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="email" class="text-gray-700">Email</label>
+									<form:input path="email" id="email" class="form-control"
+										placeholder="Email" />
+									<form:errors path="email" cssClass="text-danger" />
+								</div>
+								<div class="form-group col-md-6">
+									<label for="phoneNumber" class="text-gray-700">Phone
+										Number</label>
+									<form:input path="phoneNumber" id="phoneNumber"
+										class="form-control" placeholder="Phone Number" />
+									<form:errors path="phoneNumber" cssClass="text-danger" />
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="address" class="text-gray-700">Address</label>
+									<form:input path="address" id="address" class="form-control"
+										placeholder="Address" />
+                                        <!--hình ảnh
+                                        <form:input path="picture" id="picture" class="form-control"
+										placeholder="picture" />
+                                        <img src="/template/admin/picture/${employees_form.picture}" class="img-thumbnail mt-2" width="100" alt="${employees_form.employeeId}" id="currentImage"/>
+                                            -->
+									<form:errors path="address" cssClass="text-danger" />
+								</div>
+								<div class="form-group col-md-6">
+									<label for="dateOfBirth" class="text-gray-700">Date of
+										Birth</label>
+									<form:input type="date" path="dateOfBirth" id="dateOfBirth"
+										class="form-control" pattern="\d{4}-\d{2}-\d{2}" />
+									<form:errors path="dateOfBirth" cssClass="text-danger" />
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="gender" class="text-gray-700">Gender</label>
+									<div class="form-check">
+										<form:radiobutton path="gender" id="male" value="true"
+											class="form-check-input" />
+										<label class="form-check-label" for="male">Male</label>
+									</div>
+									<div class="form-check">
+										<form:radiobutton path="gender" id="female" value="false"
+											class="form-check-input" />
+										<label class="form-check-label" for="female">Female</label>
+									</div>
+									<form:errors path="gender" cssClass="text-danger" />
+								</div>
+								<div class="form-group col-md-6">
+									<label for="picture" class="text-gray-700">Picture</label> <input
+										type="file" name="file" id="fileInput"
+										class="form-control-file" onchange="previewImages(event)"
+										accept="image/*" />
+									<div id="previewContainer" class="row">
+                                        <c:if test="${not empty employees_form.picture}">
+                                            <img src="/template/admin/picture/${employees_form.picture}" class="img-thumbnail mt-2" width="100" alt=" " id="currentImage"/>
+                                        </c:if>
                                     </div>
-                                </form>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Manage Employee</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
-                </div>
-                <!-- End of Page Content -->
-                <main class="pb-16 overflow-y-auto">
-                        <div class="container px-6 mx-auto">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6 mt-3">
+									<label class="text-gray-700">Status</label><br>
+									<div class="form-check form-check-inline">
+										<form:radiobutton path="isActive" id="active" value="true"
+											class="form-check-input" />
+										<label class="form-check-label" for="active">Active</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<form:radiobutton path="isActive" id="inactive" value="false"
+											class="form-check-input" />
+										<label class="form-check-label" for="inactive">Inactive</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<button type="submit" class="btn btn-primary" formaction="/admin/employee/create">Create</button>
+									<button type="submit" class="btn btn-info" formaction="/admin/employee/update">Update</button>
+									<a href="/admin/employee/delete/${employees_form.employeeId}"class="btn btn-danger text-end">Delete</a> <a
+										href="/admin/employeeForm" class="btn btn-default">Reset</a>
+								</div>
+							</div>
+						</form:form>
 
 
-                            <!-- General elements -->
-                            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-                                <form action="EmployeeController" method="post">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="first_name" class="text-gray-700">First Name</label>
-                                            <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name" required />
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="last_name" class="text-gray-700">Last Name</label>
-                                            <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name" required />
-                                        </div>
-                                    </div>
-                                
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="email" class="text-gray-700">Email</label>
-                                            <input type="email" name="email" id="email" class="form-control" placeholder="Email" required />
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="position" class="text-gray-700">Position</label>
-                                            <select name="position" id="position" class="form-control">
-                                                <option value="Manager">Manager</option>
-                                                <option value="Developer">Developer</option>
-                                                <option value="Designer">Designer</option>
-                                                <option value="Tester">Tester</option>
-                                                <option value="Support">Support</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="phone_number" class="text-gray-700">Phone Number</label>
-                                            <input type="text" name="phone_number" id="phone_number" class="form-control" placeholder="Phone Number" required />
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="password" class="text-gray-700">Password</label>
-                                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
-                                        </div>
-                                    </div>
-                                
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="address" class="text-gray-700">Address</label>
-                                            <input type="text" name="address" id="address" class="form-control" placeholder="Address" />
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="picture" class="text-gray-700">Picture URL</label>
-                                            <input type="file"  accept="image/*" name="picture" id="picture" class="form-control" placeholder="Picture URL" />
-                                        </div>
-                                        
-                                        <div class="form-group col-md-6">
-                                            <label for="date_of_birth" class="text-gray-700">Birth Date</label>
-                                            <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" required />
-                                        </div>
-                                    </div>
-                                
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label class="text-gray-700">Active Status</label><br>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="active" id="active" value="1" checked>
-                                                <label class="form-check-label" for="active">Active</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="active" id="inactive" value="0">
-                                                <label class="form-check-label" for="inactive">Inactive</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="gender" class="text-gray-700">Gender</label>
-                                            <select name="gender" id="gender" class="form-control">
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
-                                                <option value="Prefer not to say">Prefer not to say</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="mt-6">
-                                        <button type="submit" name="action" value="create" class="btn btn-success">Create</button>
-                                        <button type="submit" name="action" value="update" class="btn btn-primary ml-2">Update</button>
-                                        <button type="submit" name="action" value="delete" class="btn btn-danger ml-2">Delete</button>
-                                        <button type="reset" class="btn btn-secondary ml-2">Reset</button>
-                                    </div>
-                                </form>
-                                
-                            </div>
-                        </div>
-                    </main>
-            </div>
-            
-            <!-- End of Main Content -->
-        </div>
-        <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
+					</div>
+
+					<div class="card shadow mb-4 mt-5">
+						<div class="card">
+							<div class="card-header py-3">
+								<div class="d-flex align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary text-uppercase">Employee
+										List</h6>
+									<form class="form-inline">
+										<div class="input-group">
+											<input type="text"
+												class="form-control bg-light border-0 small"
+												placeholder="Search for..." aria-label="Search"
+												aria-describedby="basic-addon2">
+											<div class="input-group-append">
+												<button class="btn btn-primary" type="button">
+													<i class="fas fa-search fa-sm"></i>
+												</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-hover table-bordered">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">First Name</th>
+											<th scope="col">Last Name</th>
+                                            <th scope="col">Position</th>
+                                            <th scope="col">Email</th>
+											<th scope="col">Phone Number</th>
+											<th scope="col">Address</th>
+											<th scope="col">Date of Birth</th>
+											<th scope="col">Gender</th>
+											<th scope="col">Picture</th>
+											<th scope="col">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="employee" items="${employees}">
+											<tr>
+												<th scope="row">${employee.employeeId}</th>
+												<td>${employee.firstName}</td>
+												<td>${employee.lastName}</td>
+                                                <td>${employee.user.userRole.roleName}</td>
+                                                <td>${employee.email}</td>
+												<td>${employee.phoneNumber}</td>
+												<td>${employee.address}</td>
+												<td><fmt:formatDate value="${employee.dateOfBirth}" pattern="dd/MM/yyyy" /></td>
+												<td>${employee.gender ? "Male" : "Female"}</td>
+												<td><c:if test="${not empty employee.picture}">
+														<img src="/template/admin/picture/${employee.picture}"
+															class="img-thumbnail" width="100"
+															alt="${employee.employeeId}" />
+													</c:if></td>
+												<td><a
+													href="${pageContext.request.contextPath}/admin/employee/edit/${employee.employeeId}"
+													class="btn btn-sm btn-primary">Edit</a>
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+<script>
+    function previewImages(event) {
+        const input = event.target;
+        const previewContainer = document.getElementById('previewContainer');
+        previewContainer.innerHTML = ''; // Clear previous previews
+
+        if (input.files) {
+            const filesArray = Array.from(input.files);
+            filesArray.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-4'; // Adjust to display more images
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'img-fluid img-thumbnail mb-2';
+                    img.style.maxHeight = '200px';
+                    col.appendChild(img);
+                    previewContainer.appendChild(col);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+    }
+</script>
 </html>

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.FileInputStream;
@@ -17,10 +17,7 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -39,7 +36,7 @@ import com.asm.entity.Units;
 import com.asm.entity.dao.ProductsDAO;
 import com.asm.services.CategoryService;
 import com.asm.services.ProductService;
-import com.asm.services.SessionService;
+
 import com.asm.services.SuppliersService;
 import com.asm.services.UnitService;
 
@@ -60,14 +57,13 @@ public class ProductController {
     @Autowired
     ProductsDAO productDAO;
     
-    @Autowired
-	SessionService sessionService;
-    
+
     @Value("${file.upload.dir}") // Sử dụng @Value để inject giá trị từ application.properties
     private String uploadDir;
 //    private static final String UPLOAD_DIR = "src/main/webapp/template/user/picture/";
     
     @RequestMapping("/productForm")
+
     public String showProductForm(Model model,
     				@RequestParam("keywords") Optional<String> kw, 
     				@RequestParam("page")Optional<Integer> page,
@@ -236,6 +232,7 @@ public class ProductController {
         return "redirect:/productForm";
     }
     
+
 //    @RequestMapping("/search")
 //	public String searchAndPage(Model model,@RequestParam("keywords") Optional<String> kw) {
 //		String kwords = kw.orElse(sessionService.get("keywords", ""));
